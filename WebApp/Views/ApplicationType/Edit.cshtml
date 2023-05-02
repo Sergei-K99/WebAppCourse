@@ -1,0 +1,43 @@
+﻿@model ApplicationType
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="p-lg-3 border">
+@*        <div class="text-danger" asp-validation-summary="ModelOnly"></div>    *@        
+        <div class="mb-3 row">
+            <h2 class="text-info p-lg-3">Edit ApplicationType</h2>
+            <div class="row">
+            <div class="col-8">
+                <div class="mb-3 row">
+                    <div class="col-4">
+                       <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input  asp-for="Name" class="form-control"/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                           <input type="submit" value="Update" class="btn btn-info w-100"  />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{ <partial name="_ValidationScriptsPartial"/> }
+}

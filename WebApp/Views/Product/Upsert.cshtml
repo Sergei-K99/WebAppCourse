@@ -1,0 +1,114 @@
+﻿@model WebApp.Models.ViewModels.ProductVM
+@{
+    var title = "Create Product";
+}
+
+<form method="post"  enctype="multipart/form-data">
+    @if (Model.Product.Id != 0)
+    {
+        <input asp-for="Product.Id" hidden />
+        <input asp-for="Product.Img" value="@Model.Product.Img"  hidden />
+        title = "Edit Product";
+    }
+    else
+    {
+        <input asp-for="Product.Category" value="default"  hidden />
+        <input asp-for="Product.Img" value="default"  hidden />
+    }
+    <div class="p-lg-3 border">
+        <div class="mb-3 row">
+            <h2 class="text-info p-lg-3">@title</h2>
+            <div class="row">
+            <div class="col-8">
+                <div class="mb-3 row">
+                    <div class="col-4">
+                       <label asp-for="Product.Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input  asp-for="Product.Name" class="form-control"/>
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-4">
+                        <label asp-for="Product.Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-4">
+                        <label asp-for="Product.Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Product.Description" class="form-control summernote" ></textarea>
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                  <div class="mb-3 row">
+                    <div class="col-4">
+                        Img
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadbox" multiple class="form-control" />
+                    </div>
+                </div>
+                 <div class="mb-3 row">
+                    <div class="col-4">
+                        <label asp-for="Product.CategoryId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for=Product.CategoryId asp-items=Model.ListCategory class="form-control">
+                            <option disabled selected>--Select Category--</option>
+                        </select>
+                        <span asp-validation-for="Product.CategoryId"  class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-8 offset-4 row">
+                         <div class="col">
+                            @if (Model.Product.Id != 0)
+                            {
+                               <input type="submit" value="Update" class="btn btn-info w-100"  />
+                            }
+                            else
+                            {
+                               <input type="submit" value="Create" onclick="return ValidateInput()" class="btn btn-info w-100"  />
+                            }
+                          </div>
+                        <div class="col">
+                        <a asp-action="Index" class="btn btn-success w-100"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+             
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ <partial name="_ValidationScriptsPartial"/> }
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+        function ValidateInput(){
+            if(document.getElementById("uploadbox").value == ""){
+                Swal.fire(
+                  'Error',
+                  'Something went wrong!',
+                  'error'
+                )
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+}
